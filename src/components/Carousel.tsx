@@ -5,7 +5,7 @@ export default function Carousel() {
     "https://www.highsnobiety.com/static-assets/dato/1682600627-kith-adidas-clarks-samba-2.jpg";
 
   return (
-    <div className="carousel w-full sm:w-1/2 h-96">
+    <div className="carousel w-full sm:w-1/2 h-full">
       <div id="slide1" className="carousel-item relative w-full">
         <img src={imgUrl} className="w-full object-cover" />
         <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
