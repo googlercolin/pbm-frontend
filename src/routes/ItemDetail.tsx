@@ -69,14 +69,14 @@ export default function ItemDetail() {
 
   const ratings = (
     <div>
-      <span>4.5/5.0</span>
+      <span>4.5/5</span>
       {ratingStars}
     </div>
   );
 
   // use button key to toggle active / inactive state
   const options = (
-    <div className="space-y-1">
+    <div className="mt-2 space-y-1">
       <p>Options</p>
       <div className="space-x-2">
         <button className="btn btn-outline btn-primary btn-sm">Option 1</button>
@@ -86,12 +86,21 @@ export default function ItemDetail() {
   );
 
   const itemDetailText = (
-    <div className="flex flex-col justify-between">
-      <div className="flex flex-col gap-4">
-        <h1>Some Title</h1>
-        <p>Price</p>
+    <div className="flex flex-col justify-between pb-8 sm:pb-0 sm:w-1/2">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-xl font-bold">Some Title</h1>
+        <p>$190</p>
         {ratings}
-        <p>This is some rather long description about the product.</p>
+        <p>
+          This is some rather long description about the product. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum.
+        </p>
       </div>
       <div className="space-y-4">
         {options}
