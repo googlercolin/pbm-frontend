@@ -78,8 +78,10 @@ export default function ItemDetail() {
   const options = (
     <div className="space-y-1">
       <p>Options</p>
-      <button className="btn btn-outline btn-primary btn-sm">Option 1</button>
-      <button className="btn btn-outline btn-primary btn-sm">Option 2</button>
+      <div className="space-x-2">
+        <button className="btn btn-outline btn-primary btn-sm">Option 1</button>
+        <button className="btn btn-outline btn-primary btn-sm">Option 2</button>
+      </div>
     </div>
   );
 
