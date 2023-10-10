@@ -17,6 +17,7 @@ export default function NavBar() {
   const [ethersProvider, setProvider] =
     useState<ethers.BrowserProvider | null>();
   const [account, setAccount] = useState<Account | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (wallet?.provider) {
@@ -44,6 +45,14 @@ export default function NavBar() {
     } else {
       connect();
     }
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
   return (
     <div className="navbar bg-base-100">
@@ -108,10 +117,16 @@ export default function NavBar() {
         <button
           className="btn w-48 truncate block"
           onClick={connectButtonHandler}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {connecting && <span className="loading loading-spinner"></span>}
           {!connecting &&
-            (wallet && account ? account.address : "Connect Wallet")}
+            (wallet && account
+              ? isHovered
+                ? "Disconnect Wallet"
+                : account.address
+              : "Connect Wallet")}
         </button>
       </div>
     </div>
