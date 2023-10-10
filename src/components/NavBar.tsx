@@ -29,7 +29,13 @@ export default function NavBar() {
               <a href="/deploy">Deploy</a>
             </li>
             <li>
+              <a href="/mint">Mint</a>
+            </li>
+            <li>
               <a href="/shop">Shop</a>
+            </li>
+            <li>
+              <a href="/tokens">My Tokens</a>
             </li>
           </ul>
         </div>
@@ -40,9 +46,15 @@ export default function NavBar() {
           <li>
             <a href="/deploy">Deploy</a>
           </li>
-          <li tabIndex={0}></li>
+          <li>
+            <a href="/mint">Mint</a>
+          </li>
+          {/* <li tabIndex={0}></li> */}
           <li>
             <a href="/shop">Shop</a>
+          </li>
+          <li>
+            <a href="/tokens">My Tokens</a>
           </li>
         </ul>
       </div>
