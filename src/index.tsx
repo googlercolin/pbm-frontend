@@ -15,6 +15,8 @@ import MintPage from "./routes/MintPage";
 import TokenPage from "./routes/TokenPage";
 import ShopPage from "./routes/ShopPage";
 import DeployPage from "./routes/DeployPage";
+import { Web3OnboardProvider } from "@web3-onboard/react";
+import { WalletProvider } from "./providers/WalletConnectProvider";
 
 const routesConfig = [
   {
@@ -62,8 +64,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <NavBar />
-    <RouterProvider router={router} />
+    <WalletProvider>
+      <NavBar />
+      <RouterProvider router={router} />
+    </WalletProvider>
   </React.StrictMode>
 );
 
