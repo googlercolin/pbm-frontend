@@ -19,31 +19,27 @@ export function useFactoryContract() {
   const contractAbi = FactoryABI;
 
   useEffect(() => {
-    if (contractAddress && contractAbi && signer) {
+    if (contractAddress && contractAbi && ethersProvider) {
       const instance = new Contract(
         contractAddress,
         contractAbi,
-        signer
+        ethersProvider
       );
-      console.log("instance: ", instance)
       setContract(instance);
     }
-  }, [contractAddress, contractAbi, signer]);
+  }, [contractAddress, contractAbi, ethersProvider]);
 
-  const someTransaction = useCallback(async () => {
-    console.log("someTransaction");
-    console.log("contract: ", contract);
-    console.log("signer: ", signer);
+  const getPBMTokens = useCallback(async () => {
     try {
-        if (contract) {
-            // run the code here
-            const pbmTokens = await contract.getPBMToken(0);
-          }
+      if (contract) {
+        // run the code here
+        const pbmTokens = await contract.getPBMToken(0);
+        console.log("pbmTokens: ", pbmTokens);
+      }
     } catch (error) {
-        console.log("error: ", error)
+      console.log("error: ", error);
     }
-    
-  }, [contract, signer]);
+  }, [contract]);
 
-  return someTransaction;
+  return { factoryContract: contract, getPBMTokens };
 }
