@@ -33,8 +33,10 @@ export function useFactoryContract() {
     try {
       if (contract) {
         // run the code here
-        const pbmTokens = await contract.getPBMToken(0);
-        console.log("pbmTokens: ", pbmTokens);
+        const pbmTokens: string[][] = await contract.getAllPBMTokens();
+        // manager, wrapper, logic
+        
+        console.log("pbmTokens: ", pbmTokens[0]);
       }
     } catch (error) {
       console.log("error: ", error);
