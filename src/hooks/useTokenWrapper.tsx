@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Contract, ethers, Signer } from "ethers";
+import { useWeb3 } from "./useWeb3";
 
 // Define the contract parameters as a TypeScript interface
 interface ContractParams {
@@ -7,25 +8,22 @@ interface ContractParams {
 }
 
 export function useTokenWrapperContract({ signerOrProvider }: ContractParams) {
-  const contractAddress = "";
-  const contractAbi = ""; // import json
-
   const [contract, setContract] = useState<Contract | null>(null);
-  
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error | null>(null);
-  const [transactionHash, setTransactionHash] = useState<string | null>(null);
+  const { account, ethersProvider, signer } = useWeb3();
+
+  const contractAddress = "0x708e827AB49aA06B3b541F42f80489CA0bDA9385";
+  const contractAbi = ""; // replace with the actual ABI
 
   useEffect(() => {
-    if (contractAddress && contractAbi && signerOrProvider) {
-      const instance = new ethers.Contract(
+    if (contractAddress && contractAbi && ethersProvider) {
+      const instance = new Contract(
         contractAddress,
         contractAbi,
-        signerOrProvider
+        ethersProvider
       );
       setContract(instance);
     }
-  }, [contractAddress, contractAbi, signerOrProvider]);
+  }, [contractAddress, contractAbi, ethersProvider]);
 
   const someTransaction = useCallback(async () => {
     if (contract) {
@@ -33,5 +31,5 @@ export function useTokenWrapperContract({ signerOrProvider }: ContractParams) {
     }
   }, [contract, signerOrProvider])
 
-  return { someTransaction }
+  return { tokenWrapperContract: contract, someTransaction }
 }
