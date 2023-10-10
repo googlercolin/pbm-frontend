@@ -71,7 +71,7 @@ function PBMDeploymentForm() {
   };
 
   return (
-    <div className='PBMDeploymentForm'>
+    <div className="flex flex-col items-center">
       <h1>PBM Deployment Form</h1>
       <form onSubmit={submit}>
         {denominationFields.map((form, index) => {
@@ -79,15 +79,15 @@ function PBMDeploymentForm() {
             <div key={index}>
               <label>Denominations </label>
               <Input
-                name='denomination'
-                placeholder='1'
+                name="denomination"
+                placeholder="1"
                 onChange={(event) => handleDenominationChange(event, index)}
                 value={form.denomination}
               />
               <label>Amount </label>
               <Input
-                name='amount'
-                placeholder='1000'
+                name="amount"
+                placeholder="1000"
                 onChange={(event) => handleDenominationChange(event, index)}
                 value={form.amount}
               />
@@ -104,8 +104,8 @@ function PBMDeploymentForm() {
             <div key={index}>
               <label>Whitelist Address {index + 1} </label>
               <Input
-                name='whitelistAddress'
-                placeholder='0x07865c6E87B9F70255377e024ace6630C1Eaa37F'
+                name="whitelistAddress"
+                placeholder="0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
                 onChange={(event) => handleWhitelistAddressChange(event, index)}
                 value={address}
               />
@@ -118,8 +118,8 @@ function PBMDeploymentForm() {
           <div>
             <label>Expiry Date </label>
             <Input
-              name='expiryDate'
-              placeholder='31/12/2023'
+              name="expiryDate"
+              placeholder="31/12/2023"
               onChange={(event) => setExpiryDate(event.target.value)}
               value={expiryDate}
             />

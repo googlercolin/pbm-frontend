@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import PBMDeploymentForm from "./PBMDeploymentForm";
+import PBMDeploymentForm from "./components/PBMDeploymentForm";
 
 function App() {
   return (
     <div className="App">
-      <PBMDeploymentForm />
+      THis should be the landing page
     </div>
   );
 }

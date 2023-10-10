@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Gallery from "./components/Gallery";
+import PBMDeploymentForm from "./components/PBMDeploymentForm";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,6 +12,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { itemDetailRoute } from "./routes/ItemDetail";
+import NavBar from "./components/NavBar";
 
 const routesConfig = [
   {
@@ -21,8 +23,15 @@ const routesConfig = [
     },
   },
   {
-    path: "gallery",
+    path: "shop",
     element: <Gallery />,
+    loader: async () => {
+      return null;
+    },
+  },
+  {
+    path: "deploy",
+    element: < PBMDeploymentForm/>,
     loader: async () => {
       return null;
     },
@@ -37,6 +46,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    <NavBar />
     <RouterProvider router={router} />
   </React.StrictMode>
 );
