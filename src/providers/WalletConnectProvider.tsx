@@ -1,5 +1,6 @@
 import { Web3OnboardProvider, init } from "@web3-onboard/react";
 import injectedModule from "@web3-onboard/injected-wallets";
+import logo512 from "../assets/logo512.png";
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_API_KEY;
 
@@ -17,9 +18,9 @@ const web3Onboard = init({
   wallets,
   chains,
   appMetadata: {
-    name: "Web3-Onboard Demo",
-    icon: "<svg>App Icon</svg>",
-    description: "A demo of Web3-Onboard.",
+    name: "Purpose Bound Money",
+    icon: "<svg></svg>",
+    description: "A demo of Purpose Bound Money",
   },
   connect: {
     autoConnectLastWallet: true,

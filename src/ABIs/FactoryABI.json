@@ -1,0 +1,77 @@
+[
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_pbmExpiry", "type": "uint256" },
+      { "internalType": "bool", "name": "_isTransferable", "type": "bool" },
+      {
+        "internalType": "address",
+        "name": "underlyingTokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "deploy",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllPBMTokens",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "pbmTokenManagerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "pbmTokenWrapperAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "pbmLogicAddress",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Factory.PBMToken[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "id", "type": "uint256" }],
+    "name": "getPBMToken",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "pbmTokenManagerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "pbmTokenWrapperAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "pbmLogicAddress",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Factory.PBMToken",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -14,31 +14,9 @@ export default function NavBar() {
     setWalletModules, // function to be called with an array of wallet modules to conditionally allow connection of wallet types i.e. setWalletModules([ledger, trezor, injected])
     setPrimaryWallet, // function that can set the primary wallet and/or primary account within that wallet. The wallet that is set needs to be passed in for the first parameter and if you would like to set the primary account, the address of that account also needs to be passed in
   ] = useConnectWallet();
-  // const [ethersProvider, setProvider] =
-  // useState<ethers.BrowserProvider | null>();
-  // const [account, setAccount] = useState<Account | null>(null);
 
   const [isHovered, setIsHovered] = useState(false);
   const { account, ethersProvider, signer } = useWeb3();
-
-  // useEffect(() => {
-  //   if (wallet?.provider) {
-  //     const { name, avatar } = wallet?.accounts[0].ens ?? {};
-  //     setAccount({
-  //       address: wallet.accounts[0].address,
-  //       balance: wallet.accounts[0].balance,
-  //       ens: { name, avatar: avatar?.url },
-  //     });
-  //   }
-  // }, [wallet]);
-
-  // useEffect(() => {
-  //   // If the wallet has a provider than the wallet is connected
-  //   if (wallet?.provider) {
-  //     // if using ethers v6 this is:
-  //     setProvider(new ethers.BrowserProvider(wallet.provider, "any"));
-  //   }
-  // }, [wallet]);
 
   const connectButtonHandler = () => {
     if (wallet) {
