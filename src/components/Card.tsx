@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 interface CardProps {
   name: string;
   description: string;
@@ -15,8 +17,12 @@ export default function Card({
   tags,
   image,
 }: CardProps) {
+  const navigate = useNavigate();
+  const onClickHandler = () => {
+    navigate("/item-detail");
+  };
   return (
-    <div className="card bg-base-300 shadow-xl">
+    <div className="card bg-base-300 shadow-xl cursor-pointer hover:scale-[1.02] hover:opacity-80 transition" onClick={onClickHandler}>
       <figure>
         <img src={image} alt="Shoes" />
       </figure>
