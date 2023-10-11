@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import { itemDetailRoute } from "./routes/ItemDetail";
 import NavBar from "./components/NavBar";
-import MintPage from "./routes/MintPage";
 import TokenPage from "./routes/TokenPage";
 import ShopPage from "./routes/ShopPage";
 import DeployPage from "./routes/DeployPage";
@@ -36,13 +35,6 @@ const routesConfig = [
   {
     path: "deploy",
     element: <DeployPage />,
-    loader: async () => {
-      return null;
-    },
-  },
-  {
-    path: "mint",
-    element: <MintPage />,
     loader: async () => {
       return null;
     },

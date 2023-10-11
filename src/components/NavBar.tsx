@@ -61,9 +61,6 @@ export default function NavBar() {
               <a href="/deploy">Deploy</a>
             </li>
             <li>
-              <a href="/mint">Mint</a>
-            </li>
-            <li>
               <a href="/shop">Shop</a>
             </li>
             <li>
@@ -79,9 +76,6 @@ export default function NavBar() {
         <ul className="menu menu-horizontal px-1">
           <li>
             <a href="/deploy">Deploy</a>
-          </li>
-          <li>
-            <a href="/mint">Mint</a>
           </li>
           {/* <li tabIndex={0}></li> */}
           <li>
