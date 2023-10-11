@@ -71,11 +71,6 @@ export function useFactoryContract() {
             underlyingTokenAddress
           );
           const receipt = await txn.wait();
-          
-          receipt.events[0].args[0];
-
-          console.log("receipt: ", receipt);
-          console.log("txn: ", txn);
           return receipt;
         }
       } catch (error) {
