@@ -12,10 +12,12 @@ function PBMDeploymentForm() {
   >([{ denomination: "", amount: "" }]);
 
   const [expiryDate, setExpiryDate] = useState<string>("");
+  const [isTransferable, setIsTransferable] = useState<boolean>(true);
+  const [underlyingTokenAddress, setUnderlyingTokenAddress] = useState<string>("");
   const [whitelistAddresses, setWhitelistAddresses] = useState<string>("");
   const [whitelistAddressFields, setWhitelistAddressFields] = useState<
     string[]
-  >([""]);
+    >([""]);
 
   const handleDenominationChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -40,8 +42,10 @@ function PBMDeploymentForm() {
     e.preventDefault();
     console.log({
       denominationFields,
-      expiryDate,
+      expiryDate: Date.parse(expiryDate) / 1000,
       whitelistAddressFields,
+      isTransferable,
+      underlyingTokenAddress,
     });
   };
 
@@ -71,71 +75,40 @@ function PBMDeploymentForm() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Step 1: Deploy Contract</h1>
-      <h3 className="text-lg">Deploy the Contract</h3>
-      <label>Expiry Date </label>
-      <Input
-        name="expiryDate"
-        type="date"
-        onChange={(event) => setExpiryDate(event.target.value)}
-        value={expiryDate}
-      />
-
-      {/* <form onSubmit={submit}>
-        {denominationFields.map((form, index) => {
-          return (
-            <div key={index}>
-              <label>Denominations </label>
-              <Input
-                name="denomination"
-                placeholder="1"
-                onChange={(event) => handleDenominationChange(event, index)}
-                value={form.denomination}
-              />
-              <label>Amount </label>
-              <Input
-                name="amount"
-                placeholder="1000"
-                onChange={(event) => handleDenominationChange(event, index)}
-                value={form.amount}
-              />
-              <Button onClick={() => removeDenominationFields(index)}>
-                Remove
-              </Button>
-            </div>
-          );
-        })}
-        <Button onClick={addDenominationFields}>Add More Denominations</Button>
-        <br />
-        <div>
-          {whitelistAddressFields.map((address, index) => (
-            <div key={index}>
-              <label>Whitelist Address {index + 1} </label>
-              <Input
-                name="whitelistAddress"
-                placeholder="0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
-                onChange={(event) => handleWhitelistAddressChange(event, index)}
-                value={address}
-              />
-              <Button onClick={() => removeWhitelistAddress(index)}>
-                Remove
-              </Button>
-            </div>
-          ))}
-          <Button onClick={addWhitelistAddress}>Add Whitelist Address</Button>
-          <div>
-            <label>Expiry Date </label>
-            <Input
-              name="expiryDate"
-              type="date"
-              onChange={(event) => setExpiryDate(event.target.value)}
-              value={expiryDate}
-            />
-          </div>
-        </div>
-      </form> */}
-      <Button onClick={submit}>Submit</Button>
+    <div className='flex flex-col gap-4'>
+      <h1 className='text-2xl font-bold'>Step 1: Deploy contract</h1>
+      <h3 className='text-lg'>Deploy the contract</h3>
+      <div className='form-control w-full'>
+        <label className='label'>
+          <span className='label-text'>Expiry Date</span>
+        </label>
+        <Input
+          type='date'
+          className='input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+          onChange={(event) => setExpiryDate(event.target.value)}
+          value={expiryDate}
+        />
+        <label className='label'>
+          <span className='label-text'>Underlying token address</span>
+        </label>
+        <Input
+          type='text'
+          placeholder='eg. 0x123124322'
+          className='input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+          onChange={(event) => setUnderlyingTokenAddress(event.target.value)}
+          value={underlyingTokenAddress}
+        />
+        <label className='label cursor-pointer'>
+          <span className='label-text'>Is transferable?</span>
+          <Input
+            type='checkbox'
+            className='toggle toggle-accent'
+            checked={isTransferable}
+            onChange={(event) => setIsTransferable(!isTransferable)}
+          />
+        </label>
+      </div>
+      <Button onClick={submit}>Deploy contract</Button>
     </div>
   );
 }
