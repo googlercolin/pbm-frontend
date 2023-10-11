@@ -31,7 +31,7 @@ export default function CreateTokenTypeSection() {
 
   return (
     <section className="pt-8 flex flex-col">
-      <h1 className="text-2xl font-bold">Step 2: Create token type</h1>
+      <h1 className="text-2xl font-bold">Step 2: Create Token Type</h1>
       <h3 className="text-lg my-4">Create a Token Type</h3>
 
       <div className="form-control w-full">

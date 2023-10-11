@@ -31,7 +31,6 @@ export default function MintTokensSection() {
   };
 
   useEffect(() => {
-    console.log("elooesodfsdf");
     setAmount("");
   }, [selectedTokenType]);
 
@@ -61,7 +60,7 @@ export default function MintTokensSection() {
         </label>
         <input
           type="text"
-          placeholder="0x..."
+          placeholder="eg. 0x123124322"
           value={recipientAddress}
           className="input input-bordered w-full"
           onChange={(e) => setRecipientAddress(e.target.value)}
@@ -74,9 +73,9 @@ export default function MintTokensSection() {
         <input
           type="number"
           max={selectedTokenType.max}
-          placeholder="1"
+          placeholder="eg. 123"
           value={amount}
-          className="input input-bordered w-full"
+          className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           onChange={(e) => setAmount(parseInt(e.target.value))}
         />
       </div>

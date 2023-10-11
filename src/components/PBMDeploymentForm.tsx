@@ -72,8 +72,8 @@ function PBMDeploymentForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">Step 1: Deploy contract</h1>
-      <h3 className="text-lg">Deploy the contract</h3>
+      <h1 className="text-2xl font-bold">Step 1: Deploy Contract</h1>
+      <h3 className="text-lg">Deploy the Contract</h3>
       <label>Expiry Date </label>
       <Input
         name="expiryDate"
