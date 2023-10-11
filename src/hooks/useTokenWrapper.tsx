@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Contract, ethers, Signer } from "ethers";
 import { useWeb3 } from "./useWeb3";
 import TokenWrapperABI from "../ABIs/TokenWrapper.json";
-
+import { useGetPBMToken } from "./useGetPBMToken";
 
 // Define the contract parameters as a TypeScript interface
 interface ContractParams {
@@ -13,7 +13,7 @@ export function useTokenWrapperContract({ signerOrProvider }: ContractParams) {
   const [contract, setContract] = useState<Contract | null>(null);
   const { account, ethersProvider, signer } = useWeb3();
 
-  const contractAddress = "0xD13F9A5599Ba87DdeA389E3a6c9e1fC119f1634e";
+  const { tokenWrapperAddress: contractAddress } = useGetPBMToken();
   const contractAbi = TokenWrapperABI; // replace with the actual ABI
 
   useEffect(() => {
@@ -27,11 +27,21 @@ export function useTokenWrapperContract({ signerOrProvider }: ContractParams) {
     }
   }, [contractAddress, contractAbi, ethersProvider]);
 
-  const someTransaction = useCallback(async () => {
-    if (contract) {
+  const mint = useCallback(
+    async (account: string, id: number, amount: number) => {
+      if (contract) {
         // run the code here
-    }
-  }, [contract, signerOrProvider])
+        try {
+          const txn = await contract.mint(account, id, amount, "");
+          await txn.wait();
+          return txn.hash;
+        } catch (error) {
+          console.log("error: ", error);
+        }
+      }
+    },
+    [contract]
+  );
 
-  return { tokenWrapperContract: contract, someTransaction }
+  return { tokenWrapperContract: contract, mint };
 }
