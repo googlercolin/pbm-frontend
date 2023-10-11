@@ -71,9 +71,18 @@ function PBMDeploymentForm() {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1>PBM Deployment Form</h1>
-      <form onSubmit={submit}>
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl font-bold">Step 1: Deploy contract</h1>
+      <h3 className="text-lg">Deploy the contract</h3>
+      <label>Expiry Date </label>
+      <Input
+        name="expiryDate"
+        type="date"
+        onChange={(event) => setExpiryDate(event.target.value)}
+        value={expiryDate}
+      />
+
+      {/* <form onSubmit={submit}>
         {denominationFields.map((form, index) => {
           return (
             <div key={index}>
@@ -125,7 +134,7 @@ function PBMDeploymentForm() {
             />
           </div>
         </div>
-      </form>
+      </form> */}
       <Button onClick={submit}>Submit</Button>
     </div>
   );
