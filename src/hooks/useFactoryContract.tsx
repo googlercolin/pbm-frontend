@@ -19,15 +19,11 @@ export function useFactoryContract() {
   const contractAbi = FactoryABI;
 
   useEffect(() => {
-    if (contractAddress && contractAbi && ethersProvider) {
-      const instance = new Contract(
-        contractAddress,
-        contractAbi,
-        ethersProvider
-      );
+    if (contractAddress && contractAbi && signer) {
+      const instance = new Contract(contractAddress, contractAbi, signer);
       setContract(instance);
     }
-  }, [contractAddress, contractAbi, ethersProvider]);
+  }, [contractAddress, contractAbi, signer]);
 
   const getPBMTokens = useCallback(async () => {
     try {
@@ -60,5 +56,38 @@ export function useFactoryContract() {
     [contract]
   );
 
-  return { factoryContract: contract, getPBMTokens, getPBMToken };
+  const deployPBMToken = useCallback(
+    async (
+      expiryDate: number,
+      isTransferable: boolean,
+      underlyingTokenAddress: string
+    ) => {
+      try {
+        if (contract) {
+          // run the code here
+          const txn = await contract.deploy(
+            expiryDate,
+            isTransferable,
+            underlyingTokenAddress
+          );
+          const receipt = await txn.wait();
+          
+          receipt.events[0].args[0];
+
+          console.log("receipt: ", receipt);
+          console.log("txn: ", txn);
+          return receipt;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    },
+    [contract]
+  );
+  return {
+    factoryContract: contract,
+    getPBMTokens,
+    getPBMToken,
+    deployPBMToken,
+  };
 }
