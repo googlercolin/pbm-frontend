@@ -119,7 +119,7 @@ function PBMDeploymentForm() {
             <label>Expiry Date </label>
             <Input
               name="expiryDate"
-              placeholder="31/12/2023"
+              type="date"
               onChange={(event) => setExpiryDate(event.target.value)}
               value={expiryDate}
             />
