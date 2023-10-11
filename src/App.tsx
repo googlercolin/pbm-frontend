@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 
 function App() {
   const { account, ethersProvider, signer } = useWeb3();
-  const { factoryContract, getPBMTokens } = useFactoryContract();
-  useEffect(() => {
-    getPBMTokens();
-  }, [getPBMTokens]);
+  const { factoryContract, getPBMTokens, getPBMToken } = useFactoryContract();
+  // useEffect(() => {
+  //   getPBMTokens();
+  //   getPBMToken(0);
+  // }, [getPBMTokens, getPBMToken]);
 
   return (
     <div className="App flex flex-row items-center justify-center mt-60">

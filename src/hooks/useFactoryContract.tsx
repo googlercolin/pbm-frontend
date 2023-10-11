@@ -35,7 +35,7 @@ export function useFactoryContract() {
         // run the code here
         const pbmTokens: string[][] = await contract.getAllPBMTokens();
         // manager, wrapper, logic
-        
+
         console.log("pbmTokens: ", pbmTokens[0]);
       }
     } catch (error) {
@@ -43,5 +43,22 @@ export function useFactoryContract() {
     }
   }, [contract]);
 
-  return { factoryContract: contract, getPBMTokens };
+  const getPBMToken = useCallback(
+    async (id: number) => {
+      try {
+        if (contract) {
+          // run the code here
+          const pbmToken: string[] = await contract.getPBMToken(id);
+          // manager, wrapper, logic
+          console.log("pbmToken: ", pbmToken);
+          return pbmToken;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    },
+    [contract]
+  );
+
+  return { factoryContract: contract, getPBMTokens, getPBMToken };
 }
