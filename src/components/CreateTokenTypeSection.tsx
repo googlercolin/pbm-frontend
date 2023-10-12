@@ -25,22 +25,15 @@ export default function CreateTokenTypeSection() {
   };
 
   const handleSubmit = async () => {
-    console.log({
-      denomination,
-      amount,
-      date,
-    });
-    console.log("submitting...");
-    console.log("token manager contract:", tokenManagerContract);
-
     const id = await createTokenType(
       denomination,
       amount,
       Date.parse(date) / 1000,
       "jesus",
-      "jesus.com"
+      "jesus.com" // Update this
     );
-    console.log("id:", id);
+    
+    // Show completion message / error message
   };
 
   return (
