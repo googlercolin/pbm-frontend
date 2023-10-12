@@ -7,7 +7,7 @@ interface DenominationField {
   amount: string;
 }
 
-function PBMDeploymentForm() {
+function PBMDeploymentSection() {
   const [denominationFields, setDenominationFields] = useState<
     DenominationField[]
   >([{ denomination: "", amount: "" }]);
@@ -17,73 +17,20 @@ function PBMDeploymentForm() {
   const [underlyingTokenAddress, setUnderlyingTokenAddress] = useState<string>(
     "0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
   );
-  const [whitelistAddresses, setWhitelistAddresses] = useState<string>("");
   const [whitelistAddressFields, setWhitelistAddressFields] = useState<
     string[]
   >([""]);
   const { deployPBMToken } = useFactoryContract();
 
-  const handleDenominationChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const data = [...denominationFields];
-    data[index][event.target.name as "denomination" | "amount"] =
-      event.target.value;
-    setDenominationFields(data);
-  };
-
-  const handleWhitelistAddressChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const data = [...whitelistAddressFields];
-    data[index] = event.target.value;
-    setWhitelistAddressFields(data);
-  };
-
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      denominationFields,
-      expiryDate: Date.parse(expiryDate) / 1000,
-      whitelistAddressFields,
-      isTransferable,
-      underlyingTokenAddress,
-    });
-
     const id = await deployPBMToken(
       Date.parse(expiryDate) / 1000,
       isTransferable,
       underlyingTokenAddress
     );
     
-    console.log("txn completed with id: ", id);
-  };
-
-  const addDenominationFields = () => {
-    const object = {
-      denomination: "",
-      amount: "",
-    };
-
-    setDenominationFields([...denominationFields, object]);
-  };
-
-  const removeDenominationFields = (index: number) => {
-    const data = [...denominationFields];
-    data.splice(index, 1);
-    setDenominationFields(data);
-  };
-
-  const addWhitelistAddress = () => {
-    setWhitelistAddressFields([...whitelistAddressFields, ""]);
-  };
-
-  const removeWhitelistAddress = (index: number) => {
-    const data = [...whitelistAddressFields];
-    data.splice(index, 1);
-    setWhitelistAddressFields(data);
+    // Show completion message / error message
   };
 
   return (
@@ -125,4 +72,4 @@ function PBMDeploymentForm() {
   );
 }
 
-export default PBMDeploymentForm;
+export default PBMDeploymentSection;
