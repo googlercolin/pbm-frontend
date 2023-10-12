@@ -79,7 +79,7 @@ export default function MintTokensSection() {
           onChange={(e) => setAmount(parseInt(e.target.value))}
         />
       </div>
-      <button className="mt-4 btn">Create token type</button>
+      <button className="mt-4 btn">Mint Tokens</button>
     </section>
   );
 }
