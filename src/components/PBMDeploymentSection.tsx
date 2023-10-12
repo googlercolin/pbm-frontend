@@ -17,9 +17,7 @@ function PBMDeploymentSection() {
   const [underlyingTokenAddress, setUnderlyingTokenAddress] = useState<string>(
     "0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
   );
-  const [whitelistAddressFields, setWhitelistAddressFields] = useState<
-    string[]
-  >([""]);
+  
   const { deployPBMToken } = useFactoryContract();
 
   const submit = async (e: React.FormEvent) => {
