@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "react-daisyui";
 import { useFactoryContract } from "../hooks/useFactoryContract";
 
@@ -27,14 +27,20 @@ function PBMDeploymentSection() {
       );
       setSuccess(true);
       setLoading(false);
-      setTimeout(() => setSuccess(false), 3000);
     } catch (e) {
-      console.log(String(e));
       setError(String(e));
-      setTimeout(() => setError(""), 3000);
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const successTimeout = setTimeout(() => setSuccess(false), 3000);
+    const errorTimeout = setTimeout(() => setError(""), 3000);
+    return () => {
+      clearTimeout(successTimeout);
+      clearTimeout(errorTimeout);
+    };
+  }, [success, error]);
 
   return (
     <div className="flex flex-col gap-4">

@@ -74,6 +74,7 @@ export function useFactoryContract() {
         }
       } catch (error) {
         console.log("error: ", error);
+        throw new Error("Something went wrong while deploying 😢")
       }
     },
     [contract]

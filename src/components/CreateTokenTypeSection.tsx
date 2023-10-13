@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTokenManager } from "../hooks/useTokenManager";
 import { useUsdcContract } from "../hooks/useUsdcContract";
 
@@ -44,18 +44,24 @@ export default function CreateTokenTypeSection() {
           ""
         );
         setSuccess(true);
-        setTimeout(() => setSuccess(false), 3000);
       } else {
         setError("Underlying address not found 😢");
-        setTimeout(() => setError(""), 3000);
       }
       setLoading(false);
     } catch (e) {
       setError(String(e));
       setLoading(false);
-      setTimeout(() => setError(""), 3000);
     }
   };
+
+  useEffect(()=>{
+    const successTimeout = setTimeout(() => setSuccess(false), 3000);
+    const errorTimeout = setTimeout(() => setError(""), 3000);
+    return () => {
+      clearTimeout(successTimeout);
+      clearTimeout(errorTimeout);
+    }
+  }, [success, error])
 
   return (
     <section className="pt-8 flex flex-col gap-4">

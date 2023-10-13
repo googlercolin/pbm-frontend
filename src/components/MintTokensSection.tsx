@@ -61,17 +61,25 @@ export default function MintTokensSection() {
   const mintTokens = async () => {
     setLoading(true);
     try {
-      const id = tokenTypes.filter((tokenType: any) => tokenType.selected)[0].id
+      const id = tokenTypes.filter((tokenType: any) => tokenType.selected)[0]
+        .id;
       await mint(recipientAddress, id, Number(amount));
       setLoading(false);
       setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
     } catch (e) {
       setLoading(false);
       setError(String(e));
-      setTimeout(() => setError(""), 3000);
     }
   };
+
+  useEffect(() => {
+    const successTimeout = setTimeout(() => setSuccess(false), 3000);
+    const errorTimeout = setTimeout(() => setError(""), 3000);
+    return () => {
+      clearTimeout(successTimeout);
+      clearTimeout(errorTimeout);
+    };
+  }, [success, error]);
 
   useEffect(() => {
     setAmount("");
@@ -88,9 +96,6 @@ export default function MintTokensSection() {
         </label>
         <select
           className="select select-bordered"
-          value={
-            tokenTypes.filter((tokenType: any) => tokenType.selected).value
-          }
           onChange={selectTokenHandler}
         >
           <option disabled>Pick one</option>
@@ -114,6 +119,9 @@ export default function MintTokensSection() {
       <div className="form-control">
         <label className="label">
           <span className="label-text">Amount</span>
+          <span className="label-text">
+            Max: {tokenTypes.filter((token: any) => token.selected)[0]?.max}
+          </span>
         </label>
         <input
           type="number"
@@ -122,8 +130,22 @@ export default function MintTokensSection() {
           className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           onChange={(e) => setAmount(parseInt(e.target.value))}
         />
+        {tokenTypes.filter((token: any) => token.selected)[0]?.max < amount && (
+          <label className="label">
+            <span className="label-text text-error">Max amount exceeded</span>
+          </label>
+        )}
       </div>
-      <button onClick={mintTokens} className="btn">
+      <button
+        disabled={
+          loading ||
+          Number(amount) < 1 ||
+          recipientAddress === "" ||
+          tokenTypes.filter((token: any) => token.selected)[0].max < amount
+        }
+        onClick={mintTokens}
+        className="btn"
+      >
         Mint Tokens
       </button>
       {success && (

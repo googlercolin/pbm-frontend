@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLogicContract } from "../hooks/useLogicContract";
 
 export default function WhitelistAddressSection() {
@@ -6,7 +6,9 @@ export default function WhitelistAddressSection() {
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
   const { logicContract, addToWhitelist } = useLogicContract();
+
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value);
   };
@@ -17,13 +19,21 @@ export default function WhitelistAddressSection() {
       await addToWhitelist(address);
       setLoading(false);
       setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
     } catch (e) {
       setLoading(false);
       setError(String(e));
-      setTimeout(() => setError(""), 3000);
     }
   };
+
+  useEffect(() => {
+    const successTimeout = setTimeout(() => setSuccess(false), 3000);
+    const errorTimeout = setTimeout(() => setError(""), 3000);
+    return () => {
+      clearTimeout(successTimeout);
+      clearTimeout(errorTimeout);
+    };
+  }, [success, error]);
+  
   return (
     <section className="pt-8 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Step 3: Whitelist Addresses</h1>
