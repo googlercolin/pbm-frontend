@@ -4,6 +4,14 @@ import TokenManagerAbi from "../ABIs/TokenManagerABI.json";
 import { useWeb3 } from "./useWeb3";
 import { Contract } from "ethers";
 
+export interface TokenType {
+  denomination: number;
+  amount: number;
+  expiryDate: number;
+  creator: string;
+  tokenURI: string;
+}
+
 export function useTokenManager() {
   const [contract, setContract] = useState<Contract | null>(null);
   const { account, ethersProvider, signer } = useWeb3();
@@ -49,7 +57,7 @@ export function useTokenManager() {
   const getTokenTypes = useCallback(async () => {
     if (contract) {
       try {
-        const tokenTypes = await contract._tokenTypes();
+        const tokenTypes: TokenType[] = await contract._tokenTypes();
         return tokenTypes;
       } catch (error) {
         console.log("error: ", error);

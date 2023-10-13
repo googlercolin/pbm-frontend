@@ -1,9 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
-import { Contract, ethers, Signer, TransactionResponse, TransactionReceipt } from "ethers";
+import {
+  Contract,
+  ethers,
+  Signer,
+  TransactionResponse,
+  TransactionReceipt,
+} from "ethers";
 import { useWeb3 } from "./useWeb3";
 import TokenWrapperABI from "../ABIs/TokenWrapper.json";
 import { useGetPBMToken } from "./useGetPBMToken";
-
 
 // Define the contract parameters as a TypeScript interface
 interface ContractParams {
@@ -33,7 +38,12 @@ export function useTokenWrapperContract() {
       if (contract) {
         // run the code here
         try {
-          const txn: TransactionResponse = await contract.mint(account, id, amount, "");
+          const txn: TransactionResponse = await contract.mint(
+            account,
+            id,
+            amount,
+            ""
+          );
           const receipt: TransactionReceipt | null = await txn.wait();
           return txn.hash;
         } catch (error) {
@@ -58,12 +68,15 @@ export function useTokenWrapperContract() {
     [contract]
   );
 
-  // For a given account, we'll get the token balance of each token ID 
+  // For a given account, we'll get the token balance of each token ID
   const balanceOfBatch = useCallback(
     async (account: string, ids: number[]) => {
       if (contract) {
         try {
-          const balance = await contract.balanceOfBatch(Array(ids.length).fill(account), ids);
+          const balance = await contract.balanceOfBatch(
+            Array(ids.length).fill(account),
+            ids
+          );
           return balance;
         } catch (error) {
           console.log("error: ", error);
@@ -74,10 +87,22 @@ export function useTokenWrapperContract() {
   );
 
   const safeBatchTransferFrom = useCallback(
-    async (from: string, to: string, ids: number[], amounts: number[], data: string) => {
+    async (
+      from: string,
+      to: string,
+      ids: number[],
+      amounts: number[],
+      data: string
+    ) => {
       if (contract) {
         try {
-          const txn: TransactionResponse = await contract.safeBatchTransferFrom(from, to, ids, amounts, data);
+          const txn: TransactionResponse = await contract.safeBatchTransferFrom(
+            from,
+            to,
+            ids,
+            amounts,
+            data
+          );
           const receipt: TransactionReceipt | null = await txn.wait();
           return receipt?.status;
         } catch (error) {
@@ -88,5 +113,30 @@ export function useTokenWrapperContract() {
     [contract]
   );
 
-  return { tokenWrapperContract: contract, mint, balanceOf, balanceOfBatch, safeBatchTransferFrom};
+  const setApprovalForAll = useCallback(
+    async (operator: string, approved: boolean) => {
+      if (contract) {
+        try {
+          const txn: TransactionResponse = await contract.setApprovalForAll(
+            operator,
+            approved
+          );
+          const receipt: TransactionReceipt | null = await txn.wait();
+          return receipt?.status;
+        } catch (error) {
+          console.log("error: ", error);
+        }
+      }
+    },
+    [contract]
+  );
+
+  return {
+    tokenWrapperContract: contract,
+    mint,
+    balanceOf,
+    balanceOfBatch,
+    safeBatchTransferFrom,
+    setApprovalForAll,
+  };
 }

@@ -27,6 +27,7 @@ export default function ItemDetail() {
 
   const buyButtonHandler = () => {
     if (account && tokenWrapperAddress) {
+      
       safeBatchTransferFrom(account.address, merchantsAddress, [1], [1], "");
     }
   };
