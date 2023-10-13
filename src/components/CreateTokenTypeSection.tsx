@@ -13,7 +13,7 @@ export default function CreateTokenTypeSection() {
   const [error, setError] = useState<string>("");
 
   const { tokenManagerContract, createTokenType } = useTokenManager();
-  const { usdcContract, approve } = useUsdcContract();
+  const { approve } = useUsdcContract();
 
   const handleDenominationChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -30,14 +30,14 @@ export default function CreateTokenTypeSection() {
   };
 
   const handleSubmit = async () => {
-    const totalAmount = denomination * amount;
+    const totalAmount = denomination * amount * 10 ** 6;
     setLoading(true);
     try {
       const tokenManagerAddress = await tokenManagerContract?.getAddress();
       if (tokenManagerAddress) {
-        const receipt = await approve(tokenManagerAddress, totalAmount);
-        const id = await createTokenType(
-          denomination,
+        await approve(tokenManagerAddress, totalAmount);
+        await createTokenType(
+          denomination * 10 ** 6,
           amount,
           Date.parse(date) / 1000,
           "",
@@ -54,14 +54,14 @@ export default function CreateTokenTypeSection() {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const successTimeout = setTimeout(() => setSuccess(false), 3000);
     const errorTimeout = setTimeout(() => setError(""), 3000);
     return () => {
       clearTimeout(successTimeout);
       clearTimeout(errorTimeout);
-    }
-  }, [success, error])
+    };
+  }, [success, error]);
 
   return (
     <section className="pt-8 flex flex-col gap-4">

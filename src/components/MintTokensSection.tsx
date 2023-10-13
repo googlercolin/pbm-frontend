@@ -17,16 +17,8 @@ export default function MintTokensSection() {
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const { tokenManagerContract, createTokenType, getTokenTypes } =
-    useTokenManager();
-  const {
-    tokenWrapperContract,
-    mint,
-    balanceOf,
-    balanceOfBatch,
-    safeBatchTransferFrom,
-    setApprovalForAll,
-  } = useTokenWrapperContract();
+  const { getTokenTypes } = useTokenManager();
+  const { mint } = useTokenWrapperContract();
 
   useEffect(() => {
     const fetchTokenTypes = async () => {
@@ -36,7 +28,7 @@ export default function MintTokensSection() {
         res.forEach((tokenType: any, index: number) => {
           temp.push({
             id: index,
-            value: Number(tokenType[0]),
+            value: Number(tokenType[0]) / 10 ** 6,
             max: Number(tokenType[1]),
             selected: index === 0 ? true : false,
           });

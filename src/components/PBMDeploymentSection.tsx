@@ -20,7 +20,7 @@ function PBMDeploymentSection() {
     e.preventDefault();
     setLoading(true);
     try {
-      const id = await deployPBMToken(
+      await deployPBMToken(
         Date.parse(expiryDate) / 1000,
         isTransferable,
         underlyingTokenAddress

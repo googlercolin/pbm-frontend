@@ -7,7 +7,7 @@ export default function WhitelistAddressSection() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { logicContract, addToWhitelist } = useLogicContract();
+  const { addToWhitelist } = useLogicContract();
 
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value);
@@ -33,7 +33,7 @@ export default function WhitelistAddressSection() {
       clearTimeout(errorTimeout);
     };
   }, [success, error]);
-  
+
   return (
     <section className="pt-8 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Step 3: Whitelist Addresses</h1>
