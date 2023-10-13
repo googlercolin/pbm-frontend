@@ -40,11 +40,22 @@ export function useTokenManager() {
         }
       } catch (error) {
         console.log("error: ", error);
-        throw new Error("Something went wrong creating token type 😢")
+        throw new Error("Something went wrong creating token type 😢");
       }
     },
     [contract]
   );
 
-  return { tokenManagerContract: contract, createTokenType };
+  const getTokenTypes = useCallback(async () => {
+    if (contract) {
+      try {
+        const tokenTypes = await contract._tokenTypes();
+        return tokenTypes;
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    }
+  }, [contract]);
+
+  return { tokenManagerContract: contract, createTokenType, getTokenTypes };
 }
