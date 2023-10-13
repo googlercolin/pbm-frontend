@@ -8,7 +8,7 @@ function PBMDeploymentSection() {
   );
   const [isTransferable, setIsTransferable] = useState<boolean>(true);
   const [underlyingTokenAddress, setUnderlyingTokenAddress] = useState<string>(
-    "0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
+    "0x86378fFB1A704B9037A20A8066BEC948deb1DA04"
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);

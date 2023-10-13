@@ -33,7 +33,6 @@ export function useFactoryContract() {
         const pbmTokens: string[][] = await contract.getAllPBMTokens();
         // manager, wrapper, logic
 
-        console.log("pbmTokens: ", pbmTokens[0]);
       }
     } catch (error) {
       console.log("error: ", error);
@@ -47,7 +46,6 @@ export function useFactoryContract() {
           // run the code here
           const pbmToken: string[] = await contract.getPBMToken(id);
           // manager, wrapper, logic
-          console.log("pbmToken: ", pbmToken);
           return pbmToken;
         }
       } catch (error) {

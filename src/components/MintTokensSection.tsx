@@ -1,38 +1,73 @@
 import { useState, useEffect } from "react";
+import { useTokenManager } from "../hooks/useTokenManager";
+
+interface TokenType {
+  id: number;
+  value: number;
+  max: number;
+  selected: boolean;
+}
 
 export default function MintTokensSection() {
-  const tokenTypes = [
-    {
-      id: 0,
-      value: "$1",
-      max: 10,
-    },
-    {
-      id: 1,
-      value: "$2",
-      max: 2,
-    },
-    {
-      id: 2,
-      value: "$5",
-      max: 5,
-    },
-  ];
+  // const tokenTypes = [
+  //   {
+  //     id: 0,
+  //     value: "$1",
+  //     max: 10,
+  //   },
+  //   {
+  //     id: 1,
+  //     value: "$2",
+  //     max: 2,
+  //   },
+  //   {
+  //     id: 2,
+  //     value: "$5",
+  //     max: 5,
+  //   },
+  // ];
 
-  const [selectedTokenType, setSelectedTokenType] = useState(tokenTypes[0]);
+  // const [selectedTokenID, setSelectedTokenID] = useState(0);
   const [amount, setAmount] = useState<number | string>("");
   const [recipientAddress, setRecipientAddress] = useState("");
+  const [tokenTypes, setTokenTypes] = useState<any>([]);
+
+  const { tokenManagerContract, createTokenType, getTokenTypes } =
+    useTokenManager();
+
+  useEffect(() => {
+    const fetchTokenTypes = async () => {
+      const res = await getTokenTypes();
+      const temp: TokenType[] = [];
+      if (res) {
+        res.forEach((tokenType: any, index: number) => {
+          temp.push({
+            id: index,
+            value: Number(tokenType[0]),
+            max: Number(tokenType[1]),
+            selected: false,
+          });
+        });
+        setTokenTypes(temp);
+      }
+    };
+    fetchTokenTypes();
+  }, [getTokenTypes]);
 
   const selectTokenHandler = (e: any) => {
-    const id = tokenTypes.filter(
-      (tokenType) => tokenType.value === e.target.value
-    )[0].id;
-    setSelectedTokenType(tokenTypes[id]);
+    const temp = tokenTypes.map((tokenType: any) => {
+      if (tokenType.id === e.target.value) {
+        return { ...tokenType, selected: true };
+      } else {
+        return { ...tokenType, selected: false };
+      }
+    });
+    setTokenTypes(temp);
   };
 
   useEffect(() => {
     setAmount("");
-  }, [selectedTokenType]);
+  }, [tokenTypes]);
 
   return (
     <section className="pt-8 flex flex-col gap-4">
@@ -45,12 +80,14 @@ export default function MintTokensSection() {
         </label>
         <select
           className="select select-bordered"
-          value={selectedTokenType.value}
+          value={
+            tokenTypes.filter((tokenType: any) => tokenType.selected).value
+          }
           onChange={selectTokenHandler}
         >
           <option disabled>Pick one</option>
-          {tokenTypes.map((tokenType) => (
-            <option key={tokenType.value}>{tokenType.value}</option>
+          {tokenTypes.map((tokenType: any) => (
+            <option key={tokenType.id}>${tokenType.value}</option>
           ))}
         </select>
       </div>
@@ -72,7 +109,6 @@ export default function MintTokensSection() {
         </label>
         <input
           type="number"
-          max={selectedTokenType.max}
           placeholder="eg. 123"
           value={amount}
           className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"

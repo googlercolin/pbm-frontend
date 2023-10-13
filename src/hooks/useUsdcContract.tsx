@@ -24,14 +24,11 @@ export function useUsdcContract() {
           // run the code here
           const txn = await contract.approve(spender, amount);
           await txn.wait();
-          console.log("APPROVING USDC HERE")
           return txn.hash;
-        } else {
-          console.log("contract is null");
         }
       } catch (error) {
         console.log("error: ", error);
-        throw new Error("Something went wrong approving USDC 😢")
+        throw new Error("Something went wrong approving USDC 😢");
       }
     },
     [contract]

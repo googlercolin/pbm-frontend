@@ -36,7 +36,6 @@ export default function CreateTokenTypeSection() {
       const tokenManagerAddress = await tokenManagerContract?.getAddress();
       if (tokenManagerAddress) {
         const receipt = await approve(tokenManagerAddress, totalAmount);
-        console.log("APPROVE DONE", receipt);
         const id = await createTokenType(
           denomination,
           amount,

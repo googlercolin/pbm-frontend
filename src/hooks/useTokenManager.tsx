@@ -57,7 +57,7 @@ export function useTokenManager() {
   const getTokenTypes = useCallback(async () => {
     if (contract) {
       try {
-        const tokenTypes: TokenType[] = await contract._tokenTypes();
+        const tokenTypes: TokenType[] = await contract.getTokenTypes();
         return tokenTypes;
       } catch (error) {
         console.log("error: ", error);
