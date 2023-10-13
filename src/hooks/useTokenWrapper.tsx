@@ -58,5 +58,20 @@ export function useTokenWrapperContract() {
     [contract]
   );
 
-  return { tokenWrapperContract: contract, mint, balanceOf};
+  // For a given account, we'll get the token balance of each token ID 
+  const balanceOfBatch = useCallback(
+    async (account: string, ids: number[]) => {
+      if (contract) {
+        try {
+          const balance = await contract.balanceOfBatch(Array(ids.length).fill(account), ids);
+          return balance;
+        } catch (error) {
+          console.log("error: ", error);
+        }
+      }
+    },
+    [contract]
+  );
+
+  return { tokenWrapperContract: contract, mint, balanceOf, balanceOfBatch};
 }
