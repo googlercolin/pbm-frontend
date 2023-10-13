@@ -20,77 +20,70 @@ export default function ItemDetail() {
 
   const { tokenWrapperAddress } = useGetPBMToken();
 
-  const { safeBatchTransferFrom } =
-    useTokenWrapperContract();
+  const { safeBatchTransferFrom } = useTokenWrapperContract();
   const { account } = useWeb3();
 
-  const merchantsAddress = "0xsomething" // TODO: replace with actual address
+  const merchantsAddress = "0xsomething"; // TODO: replace with actual address
 
   const buyButtonHandler = () => {
     if (account && tokenWrapperAddress) {
-      safeBatchTransferFrom(
-        account.address,
-        merchantsAddress,
-        [1],
-        [1],
-        ""
-      );
+      safeBatchTransferFrom(account.address, merchantsAddress, [1], [1], "");
     }
   };
 
   const ratingStars = (
-    <div className='rating rating-sm rating-half'>
-      <input type='radio' name='rating-10' className='rating-hidden' />
+    <div className="rating rating-sm rating-half">
+      <input type="radio" name="rating-10" className="rating-hidden" />
       <input
-        type='radio'
-        name='rating'
-        className='bg-green-500 mask mask-star-2 mask-half-1'
+        type="radio"
+        name="rating"
+        className="bg-green-500 mask mask-star-2 mask-half-1"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-2'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-2"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-1'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-1"
         checked
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-2'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-2"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-1'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-1"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-2'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-2"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-1'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-1"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-2'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-2"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-1'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-1"
       />
       <input
-        type='radio'
-        name='rating-10'
-        className='bg-green-500 mask mask-star-2 mask-half-2'
+        type="radio"
+        name="rating-10"
+        className="bg-green-500 mask mask-star-2 mask-half-2"
       />
     </div>
   );
@@ -104,25 +97,24 @@ export default function ItemDetail() {
 
   // use button key to toggle active / inactive state
   const options = (
-    <div className='mt-2 space-y-1'>
-      <p>Options</p>
-      <div className='space-x-2'>
-        <button className='btn btn-outline btn-primary btn-sm'>Option 1</button>
-        <button className='btn btn-outline btn-primary btn-sm'>Option 2</button>
-      </div>
+    <div className="flex gap-2">
+      {state.tags.map((tag) => (
+        <div className="badge badge-outline">{tag}</div>
+      ))}
+      {state.isNew && <div className="badge badge-secondary">NEW</div>}
     </div>
   );
 
   const itemDetailText = (
-    <div className='flex flex-col justify-between pb-8 sm:pb-0 sm:w-1/2'>
-      <div className='flex flex-col gap-2'>
-        <h1 className='text-xl font-bold'>{state.name}</h1>
+    <div className="flex flex-col justify-between pb-8 sm:pb-0 sm:w-1/2">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-xl font-bold">{state.name}</h1>
         <p>{state.price}</p>
         {ratings}
         <p>{state.description}</p>
-      </div>
-      <div className='space-y-4'>
         {options}
+      </div>
+      <div className="space-y-4">
         <button className="btn btn-primary w-full" onClick={buyButtonHandler}>
           Buy
         </button>
@@ -131,7 +123,7 @@ export default function ItemDetail() {
   );
 
   return (
-    <div className='flex flex-wrap p-8 h-96 sm:h-[40rem] sm:p-16 gap-10 sm:flex-nowrap'>
+    <div className="flex flex-wrap p-8 h-96 sm:h-[40rem] sm:p-16 gap-10 sm:flex-nowrap">
       <Carousel imgs={state.image} />
       {itemDetailText}
     </div>
