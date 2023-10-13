@@ -73,5 +73,20 @@ export function useTokenWrapperContract() {
     [contract]
   );
 
-  return { tokenWrapperContract: contract, mint, balanceOf, balanceOfBatch};
+  const safeBatchTransferFrom = useCallback(
+    async (from: string, to: string, ids: number[], amounts: number[], data: string) => {
+      if (contract) {
+        try {
+          const txn: TransactionResponse = await contract.safeBatchTransferFrom(from, to, ids, amounts, data);
+          const receipt: TransactionReceipt | null = await txn.wait();
+          return receipt?.status;
+        } catch (error) {
+          console.log("error: ", error);
+        }
+      }
+    },
+    [contract]
+  );
+
+  return { tokenWrapperContract: contract, mint, balanceOf, balanceOfBatch, safeBatchTransferFrom};
 }
