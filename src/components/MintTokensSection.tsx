@@ -35,9 +35,9 @@ export default function MintTokensSection() {
   }, [selectedTokenType]);
 
   return (
-    <section className="pt-8 flex flex-col">
+    <section className="pt-8 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Step 4: Mint Tokens</h1>
-      <h3 className="text-lg">Mint the tokens</h3>
+      <h3 className="text-lg">Mint and distribute PBMs to recipients.</h3>
 
       <div className="form-control w-full">
         <label className="label">
@@ -79,7 +79,7 @@ export default function MintTokensSection() {
           onChange={(e) => setAmount(parseInt(e.target.value))}
         />
       </div>
-      <button className="mt-4 btn">Mint Tokens</button>
+      <button className="btn">Mint Tokens</button>
     </section>
   );
 }

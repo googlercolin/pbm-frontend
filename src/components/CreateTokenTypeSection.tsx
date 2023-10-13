@@ -55,14 +55,12 @@ export default function CreateTokenTypeSection() {
       setLoading(false);
       setTimeout(() => setError(""), 3000);
     }
-
-    // Show completion message / error message
   };
 
   return (
-    <section className="pt-8 flex flex-col">
+    <section className="pt-8 flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Step 2: Create Token Type</h1>
-      <h3 className="text-lg my-4">Create a Token Type</h3>
+      <h3 className="text-lg">Create new token denominations.</h3>
 
       <div className="form-control w-full">
         <label className="label">
@@ -107,7 +105,7 @@ export default function CreateTokenTypeSection() {
       </div>
       <button
         disabled={loading || amount < 1 || denomination < 1}
-        className="mt-4 btn"
+        className="btn"
         onClick={handleSubmit}
       >
         Create Token Type

@@ -1,13 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { useWeb3 } from "./useWeb3";
 import { Contract } from "ethers";
-
+import { useGetPBMToken } from "./useGetPBMToken";
 import PBMLogicABI from "../ABIs/Logic.json";
 
-export function useUsdcContract() {
+export function useLogicContract() {
   const [contract, setContract] = useState<Contract | null>(null);
   const { account, ethersProvider, signer } = useWeb3();
-  const contractAddress = "0xbD04005603C10eC279b4a93af5Ae9977aA236a70";
+
+  const { tokenLogicAddress: contractAddress } = useGetPBMToken();
+
   const contractAbi = PBMLogicABI;
 
   useEffect(() => {
