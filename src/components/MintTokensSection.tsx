@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTokenManager } from "../hooks/useTokenManager";
+import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
 
 interface TokenType {
   id: number;
@@ -9,31 +10,23 @@ interface TokenType {
 }
 
 export default function MintTokensSection() {
-  // const tokenTypes = [
-  //   {
-  //     id: 0,
-  //     value: "$1",
-  //     max: 10,
-  //   },
-  //   {
-  //     id: 1,
-  //     value: "$2",
-  //     max: 2,
-  //   },
-  //   {
-  //     id: 2,
-  //     value: "$5",
-  //     max: 5,
-  //   },
-  // ];
-
-  // const [selectedTokenID, setSelectedTokenID] = useState(0);
   const [amount, setAmount] = useState<number | string>("");
   const [recipientAddress, setRecipientAddress] = useState("");
   const [tokenTypes, setTokenTypes] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const { tokenManagerContract, createTokenType, getTokenTypes } =
     useTokenManager();
+  const {
+    tokenWrapperContract,
+    mint,
+    balanceOf,
+    balanceOfBatch,
+    safeBatchTransferFrom,
+    setApprovalForAll,
+  } = useTokenWrapperContract();
 
   useEffect(() => {
     const fetchTokenTypes = async () => {
@@ -45,7 +38,7 @@ export default function MintTokensSection() {
             id: index,
             value: Number(tokenType[0]),
             max: Number(tokenType[1]),
-            selected: false,
+            selected: index === 0 ? true : false,
           });
         });
         setTokenTypes(temp);
@@ -56,13 +49,28 @@ export default function MintTokensSection() {
 
   const selectTokenHandler = (e: any) => {
     const temp = tokenTypes.map((tokenType: any) => {
-      if (tokenType.id === e.target.value) {
+      if (tokenType.value === Number(e.target.value.slice(1))) {
         return { ...tokenType, selected: true };
       } else {
         return { ...tokenType, selected: false };
       }
     });
     setTokenTypes(temp);
+  };
+
+  const mintTokens = async () => {
+    setLoading(true);
+    try {
+      const id = tokenTypes.filter((tokenType: any) => tokenType.selected)[0].id
+      await mint(recipientAddress, id, Number(amount));
+      setLoading(false);
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
+    } catch (e) {
+      setLoading(false);
+      setError(String(e));
+      setTimeout(() => setError(""), 3000);
+    }
   };
 
   useEffect(() => {
@@ -115,7 +123,31 @@ export default function MintTokensSection() {
           onChange={(e) => setAmount(parseInt(e.target.value))}
         />
       </div>
-      <button className="btn">Mint Tokens</button>
+      <button onClick={mintTokens} className="btn">
+        Mint Tokens
+      </button>
+      {success && (
+        <div className="toast toast-center">
+          <div className="alert alert-success flex">
+            <span>Tokens successfully minted 😄</span>
+          </div>
+        </div>
+      )}
+      {error && (
+        <div className="toast toast-center">
+          <div className="alert alert-error text-white flex">
+            <span>{error}</span>
+          </div>
+        </div>
+      )}
+      {loading && (
+        <div className="toast toast-center">
+          <div className="alert alert-info text-white flex">
+            <span>Minting tokens</span>
+            <span className="loading loading-dots loading-md"></span>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

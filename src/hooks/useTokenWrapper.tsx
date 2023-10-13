@@ -23,15 +23,11 @@ export function useTokenWrapperContract() {
   const contractAbi = TokenWrapperABI; // replace with the actual ABI
 
   useEffect(() => {
-    if (contractAddress && contractAbi && ethersProvider) {
-      const instance = new Contract(
-        contractAddress,
-        contractAbi,
-        ethersProvider
-      );
+    if (contractAddress && contractAbi && signer) {
+      const instance = new Contract(contractAddress, contractAbi, signer);
       setContract(instance);
     }
-  }, [contractAddress, contractAbi, ethersProvider]);
+  }, [contractAddress, contractAbi, signer]);
 
   const mint = useCallback(
     async (account: string, id: number, amount: number) => {
@@ -42,12 +38,13 @@ export function useTokenWrapperContract() {
             account,
             id,
             amount,
-            ""
+            ethers.toUtf8Bytes("")
           );
           const receipt: TransactionReceipt | null = await txn.wait();
           return txn.hash;
         } catch (error) {
           console.log("error: ", error);
+          throw new Error("Something went wrong while minting 😢");
         }
       }
     },
