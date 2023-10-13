@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTokenManager } from "../hooks/useTokenManager";
 
 export default function CreateTokenTypeSection() {
   const [denomination, setDenomination] = useState<number>(0);
@@ -6,6 +7,8 @@ export default function CreateTokenTypeSection() {
   const [date, setDate] = useState<string>(
     new Date().toISOString().slice(0, 10)
   );
+
+  const { tokenManagerContract, createTokenType } = useTokenManager();
 
   const handleDenominationChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -21,13 +24,17 @@ export default function CreateTokenTypeSection() {
     setDate(new Date(event.target.value).toISOString().slice(0, 10));
   };
 
-  const handleSubmit = () => {
-    console.log({
+  const handleSubmit = async () => {
+    const id = await createTokenType(
       denomination,
       amount,
-      date,
-    })
-  }
+      Date.parse(date) / 1000,
+      "jesus",
+      "jesus.com" // Update this
+    );
+    
+    // Show completion message / error message
+  };
 
   return (
     <section className="pt-8 flex flex-col">
@@ -75,7 +82,9 @@ export default function CreateTokenTypeSection() {
           onChange={handleDateChange}
         />
       </div>
-      <button className="mt-4 btn" onClick={handleSubmit}>Create Token Type</button>
+      <button className="mt-4 btn" onClick={handleSubmit}>
+        Create Token Type
+      </button>
     </section>
   );
 }

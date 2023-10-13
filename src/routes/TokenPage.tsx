@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import VoucherRow from "../components/VoucherRow";
+import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
+import { useWeb3 } from "../hooks/useWeb3";
 
 interface VoucherRowProps {
   value: string;
@@ -13,6 +15,20 @@ interface Tokens {
 }
 
 export default function TokenPage() {
+
+  const { account } = useWeb3();
+
+  const balanceOf = useTokenWrapperContract().balanceOf;
+  useEffect(() => {
+    const getBalance = async () => {
+      if (account) {
+        const balance = await balanceOf(account.address, 1);
+        console.log("Balance: ", balance);
+      }
+    }
+    getBalance();
+  }, [balanceOf, account]);
+
   const tokens: Tokens[] = [
     {
       category: "Food & Groceries",
@@ -60,7 +76,7 @@ export default function TokenPage() {
     <div className="flex flex-col items-center p-12">
       <h1 className="text-4xl font-bold">My Tokens</h1>
       <div className="mt-4">Take a look at all your available tokens here.</div>
-
+      <div className="text-xl">Test</div>
       <div className="w-full">
         {tokens.map((token) => (
           <>
@@ -69,7 +85,7 @@ export default function TokenPage() {
             <VoucherRow tokens={token.availTokens} />
           </>
         ))}
-      </div>
+      di</div>
     </div>
   );
 }

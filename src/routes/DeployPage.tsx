@@ -1,5 +1,5 @@
 import React from "react";
-import PBMDeploymentForm from "../components/PBMDeploymentForm";
+import PBMDeploymentForm from "../components/PBMDeploymentSection";
 import CreateTokenTypeSection from "../components/CreateTokenTypeSection";
 import WhitelistAddressSection from "../components/WhitelistAddressSection";
 import MintTokensSection from "../components/MintTokensSection";

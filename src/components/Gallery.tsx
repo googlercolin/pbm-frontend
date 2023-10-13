@@ -59,7 +59,7 @@ export default function Gallery() {
     },
   ];
   return (
-    <div className="grid grid-cols-4 gap-12 m-12">
+    <div className="flex flex-wrap gap-12 m-12">
       {DUMMY_DATA.map((item) => (
         <Card {...item} />
       ))}

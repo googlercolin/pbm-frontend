@@ -1,5 +1,7 @@
 import React from "react";
 import Carousel from "../components/Carousel";
+import { useLocation } from "react-router-dom";
+import { CardProps } from "../components/Card";
 
 export const itemDetailRoute = {
   path: "item-detail",
@@ -10,6 +12,9 @@ export const itemDetailRoute = {
 };
 
 export default function ItemDetail() {
+  const location = useLocation();
+  const state: CardProps = location.state;
+
   const ratingStars = (
     <div className="rating rating-sm rating-half">
       <input type="radio" name="rating-10" className="rating-hidden" />
@@ -88,19 +93,10 @@ export default function ItemDetail() {
   const itemDetailText = (
     <div className="flex flex-col justify-between pb-8 sm:pb-0 sm:w-1/2">
       <div className="flex flex-col gap-2">
-        <h1 className="text-xl font-bold">Some Title</h1>
-        <p>$190</p>
+        <h1 className="text-xl font-bold">{state.name}</h1>
+        <p>{state.price}</p>
         {ratings}
-        <p>
-          This is some rather long description about the product. Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </p>
+        <p>{state.description}</p>
       </div>
       <div className="space-y-4">
         {options}
