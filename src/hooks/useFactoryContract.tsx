@@ -3,6 +3,7 @@ import { Contract, ethers, Signer } from "ethers";
 // import FactoryABI from "../ABIs/FactoryABI.json";
 import FactoryABI from "../ABIs/FactoryABI.json";
 import { useWeb3 } from "./useWeb3";
+import { factoryAddress } from "../constants/Constants";
 
 // Define the contract parameters as a TypeScript interface
 // interface ContractParams {
@@ -15,7 +16,7 @@ export function useFactoryContract() {
   const [contract, setContract] = useState<Contract | null>(null);
   const { account, ethersProvider, signer } = useWeb3();
 
-  const contractAddress = "0x708e827AB49aA06B3b541F42f80489CA0bDA9385";
+  const contractAddress = factoryAddress;
   const contractAbi = FactoryABI;
 
   useEffect(() => {
