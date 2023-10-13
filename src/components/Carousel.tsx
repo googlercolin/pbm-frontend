@@ -1,17 +1,17 @@
 import React from "react";
 
-export default function Carousel() {
-  let imgUrl =
-    "https://www.highsnobiety.com/static-assets/dato/1682600627-kith-adidas-clarks-samba-2.jpg";
+export default function Carousel({ imgs }: { imgs: string[] }) {
+  // let imgUrl =
+  //   "https://www.highsnobiety.com/static-assets/dato/1682600627-kith-adidas-clarks-samba-2.jpg";
 
-  let imgs = [imgUrl, imgUrl, imgUrl, imgUrl];
+  // let imgs = [imgUrl, imgUrl, imgUrl, imgUrl];
 
   return (
-    <div className="carousel carousel-center rounded-box w-full sm:w-1/2">
-      {imgs.map((img) => {
+    <div className='carousel carousel-center rounded-box w-full sm:w-1/2'>
+      {imgs && imgs.map((img) => {
         return (
-          <div className="carousel-item">
-            <img className="w-full object-contain" src={img} alt="Pizza" />
+          <div className='carousel-item'>
+            <img className='w-full object-contain' src={img} alt='Pizza' />
           </div>
         );
       })}
