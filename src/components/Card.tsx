@@ -32,7 +32,7 @@ export default function Card({
   };
   return (
     <div
-      className="card bg-base-300 shadow-xl cursor-pointer hover:scale-[1.02] hover:opacity-80 transition"
+      className="card w-full sm:max-w-sm bg-base-300 shadow-xl cursor-pointer hover:scale-[1.02] hover:opacity-80 transition"
       onClick={onClickHandler}
     >
       <figure>
