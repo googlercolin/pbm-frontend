@@ -40,3 +40,17 @@
     transform: rotate(360deg);
   }
 }
+
+.card-description {
+  /* Set a maximum height to limit the number of lines */
+  max-height: 7em; /* Adjust as needed */
+  overflow: hidden;
+  position: relative;
+}
+
+.description-limit {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit the description to 2 lines */
+  -webkit-box-orient: vertical;
+  white-space: normal; /* Allow text to wrap */
+}

@@ -130,7 +130,7 @@ export default function ItemDetail() {
 
   return (
     <div className="flex flex-wrap p-8 h-96 sm:h-[40rem] sm:p-16 gap-10 sm:flex-nowrap">
-      <Carousel imgs={state.image} />
+      <Carousel imgs={state.images} />
       {itemDetailText}
     </div>
   );
