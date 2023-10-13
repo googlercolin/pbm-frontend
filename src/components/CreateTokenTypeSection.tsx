@@ -33,9 +33,10 @@ export default function CreateTokenTypeSection() {
     const totalAmount = denomination * amount;
     setLoading(true);
     try {
-      const underlyingAddress = await tokenManagerContract?.getAddress();
-      if (underlyingAddress) {
-        const receipt = await approve(underlyingAddress, totalAmount);
+      const tokenManagerAddress = await tokenManagerContract?.getAddress();
+      if (tokenManagerAddress) {
+        const receipt = await approve(tokenManagerAddress, totalAmount);
+        console.log("APPROVE DONE", receipt);
         const id = await createTokenType(
           denomination,
           amount,

@@ -7,7 +7,7 @@ import UsdcABI from "../ABIs/UsdcABI.json";
 export function useUsdcContract() {
   const [contract, setContract] = useState<Contract | null>(null);
   const { account, ethersProvider, signer } = useWeb3();
-  const contractAddress = "0x07865c6E87B9F70255377e024ace6630C1Eaa37F";
+  const contractAddress = "0x86378fFB1A704B9037A20A8066BEC948deb1DA04";
   const contractAbi = UsdcABI;
 
   useEffect(() => {
@@ -24,10 +24,14 @@ export function useUsdcContract() {
           // run the code here
           const txn = await contract.approve(spender, amount);
           await txn.wait();
+          console.log("APPROVING USDC HERE")
           return txn.hash;
+        } else {
+          console.log("contract is null");
         }
       } catch (error) {
         console.log("error: ", error);
+        throw new Error("Something went wrong approving USDC 😢")
       }
     },
     [contract]

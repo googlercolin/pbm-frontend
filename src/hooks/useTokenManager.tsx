@@ -29,14 +29,14 @@ export function useTokenManager() {
       try {
         if (contract) {
           // run the code here
-          const id = await contract.createTokenType(
+          const txn = await contract.createTokenType(
             denomination,
             amount,
             tokenExpiry,
             creator,
             tokenURI
           );
-          return id;
+          await txn.wait();
         }
       } catch (error) {
         console.log("error: ", error);
