@@ -7,7 +7,8 @@ import { TokenType } from "./useTokenManager";
 import { mattsAddress } from "../constants/Constants";
 
 export function useBuy() {
-  const { balanceOfBatch, safeBatchTransferFrom } = useTokenWrapperContract();
+  const { balanceOfBatch, safeBatchTransferFrom, setApprovalForAll } =
+    useTokenWrapperContract();
   const { getTokenTypes } = useTokenManager();
   const { account } = useWeb3();
 
@@ -25,6 +26,7 @@ export function useBuy() {
           indices
         );
 
+        console.log("balances: ", balances);
         // Get total value owned by balances * token.denomination
         const totalValue = indices
           .map((i) => {
@@ -57,21 +59,22 @@ export function useBuy() {
             // Add the number of tokens used to the array
             tokenAmounts.push(balances[i] - balance);
 
-            
-
-            await safeBatchTransferFrom(
+            await setApprovalForAll(mattsAddress, true);
+            const txnHash = await safeBatchTransferFrom(
               account.address,
               mattsAddress, // Matt is the merchant
               tokenIds,
               tokenAmounts,
               "0x"
             );
+
+            return txnHash;
           }
         }
       }
       // If the user doesn't have enough money, throw an error
       else {
-        throw new Error("Not enough money");
+        console.log("error: ", "Not enough money");
       }
     },
     [account, safeBatchTransferFrom]

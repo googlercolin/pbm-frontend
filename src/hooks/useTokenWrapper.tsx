@@ -104,7 +104,7 @@ export function useTokenWrapperContract() {
             data
           );
           const receipt: TransactionReceipt | null = await txn.wait();
-          return receipt?.status;
+          return txn.hash;
         } catch (error) {
           console.log("error: ", error);
         }

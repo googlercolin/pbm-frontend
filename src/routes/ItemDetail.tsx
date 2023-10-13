@@ -5,6 +5,7 @@ import { CardProps } from "../components/Card";
 import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
 import { useWeb3 } from "../hooks/useWeb3";
 import { useGetPBMToken } from "../hooks/useGetPBMToken";
+import { useBuy } from "../hooks/useBuy";
 
 export const itemDetailRoute = {
   path: "item-detail",
@@ -20,15 +21,19 @@ export default function ItemDetail() {
 
   const { tokenWrapperAddress } = useGetPBMToken();
 
-  const { safeBatchTransferFrom } = useTokenWrapperContract();
+  const { buy } = useBuy();
   const { account } = useWeb3();
 
   const merchantsAddress = "0xsomething"; // TODO: replace with actual address
 
   const buyButtonHandler = () => {
     if (account && tokenWrapperAddress) {
-      
-      safeBatchTransferFrom(account.address, merchantsAddress, [1], [1], "");
+      // convert price to number
+      try {
+        buy(Number(state.price));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
