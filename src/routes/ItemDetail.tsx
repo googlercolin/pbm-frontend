@@ -2,6 +2,9 @@ import React from "react";
 import Carousel from "../components/Carousel";
 import { useLocation } from "react-router-dom";
 import { CardProps } from "../components/Card";
+import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
+import { useWeb3 } from "../hooks/useWeb3";
+import { useGetPBMToken } from "../hooks/useGetPBMToken";
 
 export const itemDetailRoute = {
   path: "item-detail",
@@ -14,6 +17,26 @@ export const itemDetailRoute = {
 export default function ItemDetail() {
   const location = useLocation();
   const state: CardProps = location.state;
+
+  const { tokenWrapperAddress } = useGetPBMToken();
+
+  const { safeBatchTransferFrom } =
+    useTokenWrapperContract();
+  const { account } = useWeb3();
+
+  const merchantsAddress = "0xsomething" // TODO: replace with actual address
+
+  const buyButtonHandler = () => {
+    if (account && tokenWrapperAddress) {
+      safeBatchTransferFrom(
+        account.address,
+        merchantsAddress,
+        [1],
+        [1],
+        ""
+      );
+    }
+  };
 
   const ratingStars = (
     <div className='rating rating-sm rating-half'>
@@ -100,7 +123,9 @@ export default function ItemDetail() {
       </div>
       <div className='space-y-4'>
         {options}
-        <button className='btn btn-primary w-full'>Add to Cart</button>
+        <button className="btn btn-primary w-full" onClick={buyButtonHandler}>
+          Buy
+        </button>
       </div>
     </div>
   );
