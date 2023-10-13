@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTokenManager } from "../hooks/useTokenManager";
+import { useUsdcContract } from "../hooks/useUsdcContract";
 
 export default function CreateTokenTypeSection() {
   const [denomination, setDenomination] = useState<number>(0);
@@ -7,8 +8,12 @@ export default function CreateTokenTypeSection() {
   const [date, setDate] = useState<string>(
     new Date().toISOString().slice(0, 10)
   );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const { tokenManagerContract, createTokenType } = useTokenManager();
+  const { usdcContract, approve } = useUsdcContract();
 
   const handleDenominationChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -25,14 +30,32 @@ export default function CreateTokenTypeSection() {
   };
 
   const handleSubmit = async () => {
-    const id = await createTokenType(
-      denomination,
-      amount,
-      Date.parse(date) / 1000,
-      "jesus",
-      "jesus.com" // Update this
-    );
-    
+    const totalAmount = denomination * amount;
+    setLoading(true);
+    try {
+      const underlyingAddress = await tokenManagerContract?.getAddress();
+      if (underlyingAddress) {
+        const receipt = await approve(underlyingAddress, totalAmount);
+        const id = await createTokenType(
+          denomination,
+          amount,
+          Date.parse(date) / 1000,
+          "",
+          ""
+        );
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 3000);
+      } else {
+        setError("Underlying address not found 😢");
+        setTimeout(() => setError(""), 3000);
+      }
+      setLoading(false);
+    } catch (e) {
+      setError(String(e));
+      setLoading(false);
+      setTimeout(() => setError(""), 3000);
+    }
+
     // Show completion message / error message
   };
 
@@ -82,9 +105,35 @@ export default function CreateTokenTypeSection() {
           onChange={handleDateChange}
         />
       </div>
-      <button className="mt-4 btn" onClick={handleSubmit}>
+      <button
+        disabled={loading || amount < 1 || denomination < 1}
+        className="mt-4 btn"
+        onClick={handleSubmit}
+      >
         Create Token Type
       </button>
+      {success && (
+        <div className="toast toast-center">
+          <div className="alert alert-success flex">
+            <span>Token type created successfully 😄</span>
+          </div>
+        </div>
+      )}
+      {error && (
+        <div className="toast toast-center">
+          <div className="alert alert-error text-white flex">
+            <span>{error}</span>
+          </div>
+        </div>
+      )}
+      {loading && (
+        <div className="toast toast-center">
+          <div className="alert alert-info text-white flex">
+            <span>Creating token type</span>
+            <span className="loading loading-dots loading-md"></span>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

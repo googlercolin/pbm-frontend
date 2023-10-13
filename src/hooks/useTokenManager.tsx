@@ -40,6 +40,7 @@ export function useTokenManager() {
         }
       } catch (error) {
         console.log("error: ", error);
+        throw new Error("Something went wrong creating token type 😢")
       }
     },
     [contract]

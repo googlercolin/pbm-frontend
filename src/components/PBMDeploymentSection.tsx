@@ -3,7 +3,9 @@ import { Button, Input } from "react-daisyui";
 import { useFactoryContract } from "../hooks/useFactoryContract";
 
 function PBMDeploymentSection() {
-  const [expiryDate, setExpiryDate] = useState<string>("");
+  const [expiryDate, setExpiryDate] = useState<string>(
+    new Date().toISOString().slice(0, 10)
+  );
   const [isTransferable, setIsTransferable] = useState<boolean>(true);
   const [underlyingTokenAddress, setUnderlyingTokenAddress] = useState<string>(
     "0x07865c6E87B9F70255377e024ace6630C1Eaa37F"
@@ -44,6 +46,7 @@ function PBMDeploymentSection() {
         </label>
         <Input
           type="date"
+          min={new Date().toISOString().slice(0, 10)}
           className="input input-bordered w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           onChange={(event) => setExpiryDate(event.target.value)}
           value={expiryDate}
