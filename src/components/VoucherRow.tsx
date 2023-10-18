@@ -2,7 +2,7 @@ import React from "react";
 import Voucher from "./Voucher";
 
 interface VoucherRowProps {
-  value: string;
+  value: number;
   amount: number;
   expiry: string;
 }

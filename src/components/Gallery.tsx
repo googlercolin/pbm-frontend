@@ -42,7 +42,7 @@ export default function Gallery() {
         by the outstanding support services from some of the best personal trainers in Singapore.",
       isNew: true,
       price: "$2500",
-      tags: ["Fashion", "Test"],
+      tags: ["Health", "Wellness"],
       images: [
         "https://images.unsplash.com/photo-1533560696583-6441b753a16a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
         "https://images.unsplash.com/photo-1643142313112-3b9faa5dc015?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3540&q=80",
@@ -122,11 +122,8 @@ export default function Gallery() {
       price: "$55",
       tags: ["Health", "Supplements"],
       images: [
-        "https://ultimatesupsg.com/cdn/shop/products/real_1024x1024.jpg?v=1679310810",
-        "https://ultimatesupsg.com/cdn/shop/products/BrownRiceTeaLatte1kg_1024x1024.jpg?v=1679311295",
-        "https://ultimatesupsg.com/cdn/shop/products/Yoghurt250g_1024x1024.jpg?v=1679311613",
-        "https://ultimatesupsg.com/cdn/shop/products/Hokkaido250g_1024x1024.jpg?v=1679311739",
-        "https://ultimatesupsg.com/cdn/shop/products/Matcha250g_1024x1024.jpg?v=1679311844",
+        "https://static.thcdn.com/productimg/1600/1600/10530943-1224889444460882.jpg",
+        "https://static.thcdn.com/productimg/1600/1600/10530943-4134889444511789.jpg",
       ],
     },
     {
