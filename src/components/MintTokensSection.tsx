@@ -19,6 +19,16 @@ export default function MintTokensSection() {
 
   const { getTokenTypes } = useTokenManager();
   const { mint } = useTokenWrapperContract();
+  
+  const compare = (a: any, b: any) => {
+    if (a.value < b.value) {
+      return -1;
+    }
+    if (a.value > b.value) {
+      return 1;
+    }
+    return 0;
+  };
 
   useEffect(() => {
     const fetchTokenTypes = async () => {
@@ -33,6 +43,7 @@ export default function MintTokensSection() {
             selected: index === 0 ? true : false,
           });
         });
+        temp.sort(compare);
         setTokenTypes(temp);
       }
     };

@@ -7,9 +7,9 @@ interface VoucherRowProps {
   expiry: string;
 }
 
-export default function VoucherRow({tokens}: {tokens: VoucherRowProps[]}) {
+export default function VoucherRow({ tokens }: { tokens: VoucherRowProps[] }) {
   return (
-    <div className="flex justify-center w-9/10">
+    <div className="grid grid-cols-4 justify-center w-9/10">
       {tokens.map((token) => (
         <Voucher key={token.value} {...token} />
       ))}

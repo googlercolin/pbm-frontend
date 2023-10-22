@@ -21,14 +21,24 @@ export default function TokenPage() {
   const getTokenTypes = useTokenManager().getTokenTypes;
   const [tokens, setTokens] = useState<Tokens[]>([]);
 
+  const compare = (a: any, b: any) => {
+    if (a.value < b.value) {
+      return -1;
+    }
+    if (a.value > b.value) {
+      return 1;
+    }
+    return 0;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      if (account) {
-        const balances = await balanceOfBatch(account.address, [0, 1, 2, 3]);
+      const tokens = await getTokenTypes();
+      const tokenIDs = tokens?.map((token, i) => i);
+      if (account && tokenIDs) {
+        const balances = await balanceOfBatch(account.address, tokenIDs);
         const types = await getTokenTypes();
-
         const updatedTokens: Tokens[] = [];
-
         if (types) {
           for (let i = 0; i < types.length; i++) {
             const denomination = types[i].denomination;
@@ -60,7 +70,7 @@ export default function TokenPage() {
             categoryToken.availTokens.push(token);
           }
         }
-
+        updatedTokens[0].availTokens.sort(compare);
         setTokens(updatedTokens);
       }
     };
@@ -97,14 +107,14 @@ export default function TokenPage() {
   }
 
   return (
-    <div className='flex flex-col items-center p-12'>
-      <h1 className='text-4xl font-bold'>My Tokens</h1>
-      <div className='mt-4'>Take a look at all your available tokens here.</div>
-      <div className='w-full'>
+    <div className="flex flex-col items-center p-12">
+      <h1 className="text-4xl font-bold">My Tokens</h1>
+      <div className="mt-4">Take a look at all your available tokens here.</div>
+      <div className="w-full">
         {tokens.map((token) => (
           <div key={token.category}>
-            <div className='divider' />
-            <h1 className='text-2xl font-bold'>{token.category}</h1>
+            <div className="divider" />
+            <h1 className="text-2xl font-bold">{token.category}</h1>
             <VoucherRow tokens={token.availTokens} />
           </div>
         ))}
