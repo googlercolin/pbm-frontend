@@ -24,13 +24,10 @@ export default function ItemDetail() {
   const { buy } = useBuy();
   const { account } = useWeb3();
 
-  const merchantsAddress = "0xsomething"; // TODO: replace with actual address
-
   const buyButtonHandler = () => {
     if (account && tokenWrapperAddress) {
-      // convert price to number
       try {
-        buy(50);
+        buy(53); // Hardcoded number for now
       } catch (error) {
         console.log(error);
       }
