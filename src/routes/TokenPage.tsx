@@ -24,7 +24,7 @@ export default function TokenPage() {
   useEffect(() => {
     const fetchData = async () => {
       if (account) {
-        const balances = await balanceOfBatch(account.address, [0, 1, 2]);
+        const balances = await balanceOfBatch(account.address, [0, 1, 2, 3]);
         const types = await getTokenTypes();
 
         const updatedTokens: Tokens[] = [];
@@ -75,17 +75,17 @@ export default function TokenPage() {
       {
         value: 1,
         amount: 5,
-        expiry: "30 Oct 2023",
+        expiry: "Sun Dec 09 2023",
       },
       {
         value: 2,
         amount: 2,
-        expiry: "30 Oct 2023",
+        expiry: "Sun Dec 09 2023",
       },
       {
         value: 5,
         amount: 10,
-        expiry: "30 Oct 2023",
+        expiry: "Sun Dec 09 2023",
       },
     ],
   };
@@ -100,7 +100,6 @@ export default function TokenPage() {
     <div className='flex flex-col items-center p-12'>
       <h1 className='text-4xl font-bold'>My Tokens</h1>
       <div className='mt-4'>Take a look at all your available tokens here.</div>
-      <div className='text-xl'>Test</div>
       <div className='w-full'>
         {tokens.map((token) => (
           <div key={token.category}>

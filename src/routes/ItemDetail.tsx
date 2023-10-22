@@ -30,7 +30,7 @@ export default function ItemDetail() {
     if (account && tokenWrapperAddress) {
       // convert price to number
       try {
-        buy(Number(state.price));
+        buy(50);
       } catch (error) {
         console.log(error);
       }
@@ -84,7 +84,7 @@ export default function ItemDetail() {
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-1"
-        checked
+        defaultChecked={true}
       />
       <input
         type="radio"
@@ -105,7 +105,7 @@ export default function ItemDetail() {
   const options = (
     <div className="flex gap-2">
       {state.tags.map((tag) => (
-        <div className="badge badge-outline">{tag}</div>
+        <div key={tag} className="badge badge-outline">{tag}</div>
       ))}
       {state.isNew && <div className="badge badge-secondary">NEW</div>}
     </div>

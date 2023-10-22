@@ -146,7 +146,7 @@ export default function Gallery() {
   return (
     <div className='flex flex-wrap gap-12 m-12 justify-center'>
       {DUMMY_DATA.map((item) => (
-        <Card {...item} />
+        <Card key={item.name} {...item} />
       ))}
     </div>
   );

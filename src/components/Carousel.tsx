@@ -10,7 +10,7 @@ export default function Carousel({ imgs }: { imgs: string[] }) {
     <div className='carousel carousel-center rounded-box w-full sm:w-1/2'>
       {imgs && imgs.map((img) => {
         return (
-          <div className='carousel-item'>
+          <div key={img} className='carousel-item'>
             <img className='w-full object-contain' src={img} alt='Pizza' />
           </div>
         );
