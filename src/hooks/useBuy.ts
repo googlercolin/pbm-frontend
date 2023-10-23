@@ -16,6 +16,8 @@ export function useBuy() {
 
   const buy = useCallback(
     async (price: number) => {
+
+      
       // We'll first get the tokens owned by the factory
       const tokens: TokenType[] | undefined = await getTokenTypes();
       // Then get the balances of those tokens owned by the user
@@ -34,7 +36,7 @@ export function useBuy() {
         })
 
         // If the user has enough money, buy the token
-        if (totalValue < price) {
+        if (totalValue >= price) {
           // First, create an array of the number of tokens needed to make up the price
           const tokenIds: number[] = [];
           const tokenAmounts: number[] = [];
@@ -56,16 +58,22 @@ export function useBuy() {
             tokenAmounts.push(Number(balances[i]) - balance);
           }
           if (tokenWrapperAddress) {
-            await setApprovalForAll(tokenWrapperAddress, true); //Approve token wrapper contract to transfer 1155s
-            const txnHash = await safeBatchTransferFrom(
-              account.address,
-              merchantAddress,
-              tokenIds,
-              tokenAmounts,
-              "0x"
-            );
+            try{
 
-            return txnHash;
+              await setApprovalForAll(tokenWrapperAddress, true); //Approve token wrapper contract to transfer 1155s
+              const txnHash = await safeBatchTransferFrom(
+                account.address,
+                merchantAddress,
+                tokenIds,
+                tokenAmounts,
+                "0x"
+              );
+  
+              return txnHash;
+            } catch (e) {
+              console.log("error", e);
+              throw new Error("Something went wrong with your purchase 😢");
+            }
           }
         }
       }

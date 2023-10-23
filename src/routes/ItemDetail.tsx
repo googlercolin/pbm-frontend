@@ -1,11 +1,12 @@
-import React from "react";
 import Carousel from "../components/Carousel";
 import { useLocation } from "react-router-dom";
 import { CardProps } from "../components/Card";
-import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
 import { useWeb3 } from "../hooks/useWeb3";
 import { useGetPBMToken } from "../hooks/useGetPBMToken";
 import { useBuy } from "../hooks/useBuy";
+import { useState } from "react";
+import { set } from "react-hook-form";
+
 
 export const itemDetailRoute = {
   path: "item-detail",
@@ -18,6 +19,8 @@ export const itemDetailRoute = {
 export default function ItemDetail() {
   const location = useLocation();
   const state: CardProps = location.state;
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const { tokenWrapperAddress } = useGetPBMToken();
 
@@ -25,11 +28,15 @@ export default function ItemDetail() {
   const { account } = useWeb3();
 
   const buyButtonHandler = () => {
+    setLoading(true);
     if (account && tokenWrapperAddress) {
       try {
         buy(53); // Hardcoded number for now
+        setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log("here", error);
+        setLoading(false);
+        setError(String(error));
       }
     }
   };
@@ -129,6 +136,21 @@ export default function ItemDetail() {
     <div className="flex flex-wrap p-8 h-96 sm:h-[40rem] sm:p-16 gap-10 sm:flex-nowrap">
       <Carousel imgs={state.images} />
       {itemDetailText}
+      {error && (
+        <div className="toast toast-center">
+          <div className="alert alert-error text-white flex">
+            <span>{error}</span>
+          </div>
+        </div>
+      )}
+      {loading && (
+        <div className="toast toast-center">
+          <div className="alert alert-info text-white flex">
+            <span>Purchasing item</span>
+            <span className="loading loading-dots loading-md"></span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
