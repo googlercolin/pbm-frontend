@@ -9,7 +9,7 @@ export function useGetPBMToken() {
 
   useEffect(() => {
     const getPBMTokenRequest = async () => {
-      const pbmTokenAddresses = await getPBMToken(0); // hardcoded id to 0 for now
+      const pbmTokenAddresses = await getPBMToken(2); // hardcoded id to 0 for now
       const [tokenManagerAddr, tokenWrapperAddr, tokenLogicAddr] =
         pbmTokenAddresses ?? [];
       setTokenManagerAddress(tokenManagerAddr);

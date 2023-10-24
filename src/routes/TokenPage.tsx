@@ -4,13 +4,13 @@ import { useTokenWrapperContract } from "../hooks/useTokenWrapper";
 import { useTokenManager } from "../hooks/useTokenManager";
 import { useWeb3 } from "../hooks/useWeb3";
 
-interface VoucherRowProps {
+export interface VoucherRowProps {
   value: number;
   amount: number;
   expiry: string;
 }
 
-interface Tokens {
+export interface Tokens {
   category: string;
   availTokens: VoucherRowProps[];
 }
