@@ -142,52 +142,62 @@ export default function ItemDetail() {
         type="radio"
         name="rating"
         className="bg-green-500 mask mask-star-2 mask-half-1"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-2"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-1"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-2"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-1"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-2"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-1"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-2"
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-1"
         defaultChecked={true}
+        disabled
       />
       <input
         type="radio"
         name="rating-10"
         className="bg-green-500 mask mask-star-2 mask-half-2"
+        disabled
       />
     </div>
   );
