@@ -9,7 +9,7 @@ interface VoucherRowProps {
 
 export default function VoucherRow({ tokens }: { tokens: VoucherRowProps[] }) {
   return (
-    <div className="grid grid-cols-4 justify-center w-9/10">
+    <div className='flex flex-wrap m-12 justify-center'>
       {tokens.map((token) => (
         <Voucher key={token.value} {...token} />
       ))}
